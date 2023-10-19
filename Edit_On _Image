@@ -1,3 +1,17 @@
+void BW() {
+    // Calculate the Average of pixels
+    int Avg = SIZE/2 ;
+    for (int i = 0 ; i < SIZE ; i++) {
+      for (int j = 0 ; j< SIZE ; j++) {
+
+      // convert to Black & White
+      if(image[i][j] >= Avg)
+        image[i][j] = 255 ;
+      else
+        image[i][j] = 0 ;
+        }
+    }
+}
 void Invert()
 {
     for (int i = 0; i < SIZE; i++) {
@@ -6,6 +20,24 @@ void Invert()
         }
     }
 }
+void Flip() {
+
+    int tmp [SIZE][SIZE];
+
+    // Store the value of pixel in temp
+    for (int i = 0 ; i < SIZE ; i++) {
+      for (int j = 0 ; j< SIZE ; j++) {
+        tmp[i][j]=image[i][j] ;
+        }
+    }
+    // Flip the pixels
+    for (int i = 0 ; i < SIZE ; i++) {
+      for (int j = 0 ; j< SIZE ; j++) {
+        image[i][j]=tmp[SIZE-i-1][j] ;
+        }
+    }
+}
+
 void Rotate()
 {
     string userInput;
@@ -39,7 +71,46 @@ void rotate90()
         }
     }
 }
+void Detected_edged() {
 
+    int tmp[SIZE][SIZE] ;
+
+    // Convert the original image into Black & White image
+    for (int i=0 ; i<SIZE ; i++){
+        for (int j=0 ; j<SIZE ; j++){
+
+            if(image[i][j] > 127)
+                image[i][j] = 255 ; // White pixel
+            else
+                image[i][j] = 0 ; // Black pixel
+        }
+    }
+    // Store the image in the temp
+    for (int i=0 ; i<SIZE ; i++){
+        for (int j=0 ; j<SIZE ; j++){
+
+            tmp[i][j] = image[i][j] ;
+        }
+    }
+    // Whitening the Black pixels surrounded by Black pixels from the 4 destinations
+    for (int i=0 ; i<SIZE ; i++){
+        for (int j=0 ; j<SIZE ; j++){
+
+            if(image[i][j] == 0 &&
+               image[i][j] == image[i][j-1] && image[i][j] == image[i][j+1] &&
+               image[i][j] == image[i-1][j] && image[i][j] == image[i+1][j])
+
+                tmp[i][j] = 255 ;
+        }
+    }
+    // Store the Detected Edged image in the original image array
+    for (int i=0 ; i<SIZE ; i++){
+        for (int j=0 ; j<SIZE ; j++){
+
+            image[i][j] = tmp[i][j] ;
+        }
+    }
+}
 void Enlagefilter() {
     int n;
     cout<<"Which quarter to enlarge 1, 2, 3 or 4? ";
@@ -81,6 +152,15 @@ void Enlagefilter() {
             image[i][j]=image2[i][j];
         }
     }
+}
+void mirror() {
+
+    // Flip the pixels
+    for (int i = 0 ; i < SIZE ; i++) {
+      for (int j = 0 ; j < SIZE ; j++) {
+        image[i][j] = image[SIZE-i-1][j] ;
+        }
+    }
 }
 void shufflefilter() {
     cout << "New order of quarters? ";
@@ -166,6 +246,31 @@ void shufflefilter() {
         }
     }
 }
+void crop () {
+    // The image required dimentions
+    int x , y , l , w ;
+    cin >> x >> y >> l >> w ;
+
+    int cropped[SIZE][SIZE] ;
+    for (int i = 0 ; i < SIZE ; i++) {
+      for (int j = 0 ; j< SIZE ; j++) {
+        cropped[i][j] = SIZE-1 ; //White image
+        }
+    }
+    for (int i = x ; i < (x+l) ; i++) {
+      for (int j = y ; j < (y+w) ; j++) {
+        //move the required pixels to (cropped) 
+        cropped[i][j] = image[i][j] ;
+        }
+    }
+    for (int i = 0 ; i < SIZE ; i++) {
+      for (int j = 0 ; j< SIZE ; j++) {
+        //store the cropped version in image
+        image[i][j] = cropped[i][j] ;
+        }
+    }
+}
+void crop () {
 void Skew_Right(){ 
 cout<<"Please enter degree to skew right: "; 
 double degree; 
