@@ -166,6 +166,59 @@ void shufflefilter() {
         }
     }
 }
+void Skew_Right(){ 
+cout<<"Please enter degree to skew right: "; 
+double degree; 
+cin>>degree; 
+degree = 90 - degree; 
+degree = ( degree*22)/(180*7); // to convert the degree into radian
+double x = tan(degree);
+double shrinkval= (256 / (1+(1/x))); 
+double move = SIZE - shrinkval ;  // starting point of the picture
+double step = move / SIZE ;  // change of movement along the picture
+shrinkval = shrinkval / SIZE ; 
+shrinkval = 1/shrinkval;
+for (int i=0 ; i<SIZE ; i++){
+   for (int j = 0; j< SIZE; j++) 
+        {
+          // to make temp image all white
+              tempimage[i][j]=255;
+        }
+}
+for (int i = 0; i < SIZE; i++) {
+      for (int j = 0; j< SIZE; j++) {
+        if(j*shrinkval<=255)
+        {
+          // to shrink the picture
+        tempimage[i][j]=image[i][int(j*shrinkval)];
+        }
+     }
+    }
+    for (int i = 0; i < SIZE; i++) {
+      for (int j = 0; j< SIZE; j++) 
+      {// copy rwmp image into original image
+        image[i][j]=tempimage[i][j];
+     }
+}
+for (int i=0 ; i<SIZE ; i++){
+   for (int j = 0; j< SIZE; j++) 
+        { //// to make temp image all white
+              tempimage[i][j]=255;
+        }
+}
+for (int i=0 ; i<SIZE ; i++){
+   for (int j = move; j< SIZE; j++) 
+        {
+              tempimage[i][j]=image[i][j-int(move)];
+        }
+        move-=step;
+}
+for (int i = 0; i < SIZE; i++) {
+      for (int j = 0; j< SIZE; j++) {
+        image[i][j]=tempimage[i][j];
+     }
+}
+}
 
 
 
