@@ -37,23 +37,6 @@ void Flip() {
         }
     }
 }
-void Flip() {
-
-    int tmp [SIZE][SIZE];
-
-    // Store the value of pixel in temp
-    for (int i = 0 ; i < SIZE ; i++) {
-      for (int j = 0 ; j< SIZE ; j++) {
-        tmp[i][j]=image[i][j] ;
-        }
-    }
-    // Flip the pixels
-    for (int i = 0 ; i < SIZE ; i++) {
-      for (int j = 0 ; j< SIZE ; j++) {
-        image[i][j]=tmp[SIZE-i-1][j] ;
-        }
-    }
-}
 void Rotate()
 {
     string userInput;
