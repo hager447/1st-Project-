@@ -12,6 +12,20 @@ void BW() {
         }
     }
 }
+void BW() {
+    // Calculate the Average of pixels
+    int Avg = SIZE/2 ;
+    for (int i = 0 ; i < SIZE ; i++) {
+      for (int j = 0 ; j< SIZE ; j++) {
+
+      // convert to Black & White
+      if(image[i][j] >= Avg)
+        image[i][j] = 255 ;
+      else
+        image[i][j] = 0 ;
+        }
+    }
+}
 void Invert()
 {
     for (int i = 0; i < SIZE; i++) {
