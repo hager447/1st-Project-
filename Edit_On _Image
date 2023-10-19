@@ -82,6 +82,90 @@ void Enlagefilter() {
         }
     }
 }
+void shufflefilter() {
+    cout << "New order of quarters? ";
+    bool z = true;
+    int a, b, c, d;
+    cin >> a >> b >> c >> d;
+    while (z) {
+        if ((a > 4 || a < 1) || (b > 4 || b < 1) || (c > 4 || c < 1) || (d > 4 || d < 1)) {
+            cout << "Wrong input , please inter new order of quarters: ";
+            cin >> a >> b >> c >> d;
+        } else {
+            z = false;
+        }
+    }
+    for (int i = 0; i < 128; i++) {
+        for (int j = 0; j < 128; j++) {
+            if (a == 1) {
+                image2[i][j] = image[i][j];
+            }
+            if (a == 2) {
+                image2[i][j] = image[i][j + 127];
+            }
+            if (a == 3) {
+                image2[i][j] = image[i + 127][j];
+            }
+            if (a == 4) {
+                image2[i][j] = image[i + 127][j + 127];
+            }
+        }
+        for (int i = 0; i < 128; i++) {
+            for (int j = 127; j < 256; j++) {
+                if (b == 1) {
+                    image2[i][j] = image[i][j - 127];
+                }
+                if (b == 2) {
+                    image2[i][j] = image[i][j];
+                }
+                if (b == 3) {
+                    image2[i][j] = image[i + 127][j - 127];
+                }
+                if (b == 4) {
+                    image2[i][j] = image[i + 127][j];
+                }
+            }
+        }
+
+        for (int i = 127; i < 256; i++) {
+            for (int j = 0; j < 128; j++) {
+                if (c == 1) {
+                    image2[i][j] = image[i - 127][j];
+                }
+                if (c == 2) {
+                    image2[i][j] = image[i - 127][j + 127];
+                }
+                if (c == 3) {
+                    image2[i][j] = image[i][j];
+                }
+                if (c == 4) {
+                    image2[i][j] = image[i][j + 127];
+                }
+            }
+        }
+        for (int i = 127; i < 256; i++) {
+            for (int j = 127; j < 256; j++) {
+                if (d == 1) {
+                    image2[i][j] = image[i - 127][j - 127];
+                }
+                if (d == 2) {
+                    image2[i][j] = image[i - 127][j];
+                }
+                if (d == 3) {
+                    image2[i][j] = image[i][j - 127];
+                }
+                if (d == 4) {
+                    image2[i][j] = image[i][j];
+                }
+            }
+        }
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                image[i][j] = image2[i][j];
+            }
+        }
+    }
+}
 
 
 
