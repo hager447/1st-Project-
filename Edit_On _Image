@@ -6,3 +6,38 @@ void Invert()
         }
     }
 }
+void Rotate()
+{
+    string userInput;
+    cout << "Rotate (90), (180), (270) or (360) degrees?\n";
+    cin >> userInput;
+    if (userInput == "360" || userInput == "270" || userInput == "180" || userInput == "90") {
+        int angle = stoi(userInput);
+        for (int i = 0; i < angle / 90; i++) {
+            rotate90();
+        }
+    } else {
+        cout << "Unrecognized angle! Please try again\n";
+        return Rotate();
+    }
+}
+
+
+void rotate90()
+{
+    unsigned char temp[SIZE][SIZE];
+    // Store img into a temporary array
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            temp[i][j] = image[i][j];
+        }
+    }
+    // Store into img rotated 90 Deg.
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            image[j][SIZE - 1 - i] = temp[i][j];
+        }
+    }
+}
+
+
